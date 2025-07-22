@@ -1,6 +1,5 @@
 import {  useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 import WebApp from '@twa-dev/sdk'
@@ -30,19 +29,15 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h4>id: {userData?.id}</h4>
+      <h4>nombre:{userData?.first_name}</h4>
+      <h4>apellido: {userData?.last_name}</h4>
+      <h4>Data: {userData?.username}</h4>
+      <h4>idioma: {userData?.language_code}</h4>
+      <h4>premiun?: {userData?.is_premium}</h4>
       </div>
-      <h1>{userData?.first_name}</h1>
-      <h2>{userData?.last_name}</h2>
-      <h2>{userData?.username}</h2>
-      <h2>{userData?.language_code}</h2>
-      <h2>{userData?.is_premium}</h2>
-      <h2>{userData?.id}</h2>
+      
+      
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
