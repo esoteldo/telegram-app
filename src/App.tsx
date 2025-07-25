@@ -1,6 +1,8 @@
 import {  useEffect, useState } from 'react'
 
 import './App.css'
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import {BottomNav, Countdown, CryptoPrices, HowItWorks, PastWinners, PrizeSection, TicketSection} from './components/Components.tsx'
 
 import WebApp from '@twa-dev/sdk'
 interface Userdata{
@@ -14,43 +16,78 @@ interface Userdata{
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   const [userData, setUserData]=useState<Userdata | null>(null)
 
 
   useEffect(() => {
     if(WebApp.initDataUnsafe.user){
+      //data del usuario de telegram
       setUserData(WebApp.initDataUnsafe.user)
     }
   }, [])
-  
 
+  const [prices, setPrices]  = useState({ btc: "0.000", eth: "0.000" });
+  const [countdown, setCD]   = useState("Loading…");
+  const [tickets, setTickets]= useState(1);
+  const [openWinners, setOpen] = useState(false);
+
+  // 8 PM UTC countdown
+  useEffect(() => {
+    const tick = () => {
+      const now: Date = new Date();
+      const next: Date = new Date();
+      next.setHours(20, 0, 0, 0);
+      if (now.getTime() > next.getTime()) next.setDate(next.getDate() + 1);
+      const diff: number = next.getTime() - now.getTime();
+      const h = String(Math.floor(diff / 3_600_000)).padStart(2, "0");
+      const m = String(Math.floor((diff % 3_600_000) / 60_000)).padStart(2, "0");
+      const s = String(Math.floor((diff % 60_000) / 1000)).padStart(2, "0");
+      setCD(`${h}:${m}:${s}`);
+    };
+    tick(); const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  
+  
   return (
     <>
       <div>
-      <h4>id: {userData?.id}</h4>
-      <h4>nombre:{userData?.first_name}</h4>
-      <h4>apellido: {userData?.last_name}</h4>
-      <h4>Data: {userData?.username}</h4>
-      <h4>idioma: {userData?.language_code}</h4>
-      <h4>premiun?: {userData?.is_premium}</h4>
+        <ul>
+          <li>id: {userData?.id}</li>
+         {/*  <li>nombre:{userData?.first_name}</li>
+          <li>apellido: {userData?.last_name}</li>
+          <li>Data: {userData?.username}</li>
+          <li>idioma: {userData?.language_code}</li>
+          <li>premiun?: {userData?.is_premium}</li> */}
+        </ul>
+      
       </div>
       
+      <div className="app">
+      {/* Top section */}
+      <header>
+        <h1 className="logo">Bigpot</h1>
+        <h2>Crypto 3-Decimal Lucky Draw</h2>
+        <p>Win big at 8 PM UTC based on BTC & ETH decimals</p>
+      </header>
+
+      <PrizeSection />
+      <CryptoPrices prices={prices} setPrices={setPrices} />
+      <Countdown countdown={countdown} />
+      <TicketSection tickets={tickets} setTickets={setTickets} />
+      <PastWinners open={openWinners} toggle={() => setOpen(!openWinners)} />
+      <HowItWorks />
+
+      {/* Bottom nav */}
+      <BottomNav />
+    </div>
       
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-		{/* Here we add our button with alert callback */}
-      <div className="card">
-        <button onClick={() => WebApp.showAlert(`Hello World! Current count is ${count}`)}>
-            Show Alert
-        </button>
-      </div>
+		
     </>
   )
 }
 
 export default App
+
+
