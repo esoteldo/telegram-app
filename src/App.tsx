@@ -19,6 +19,7 @@ function App() {
 
   const [userData, setUserData]=useState<Userdata | null>(null)
 
+  console.log(userData)
 
   useEffect(() => {
     if(WebApp.initDataUnsafe.user){
@@ -52,25 +53,28 @@ function App() {
   
   return (
     <>
-      <div>
+    <div className="container">
+      
+      {/* <div>
         <ul>
           <li>id: {userData?.id}</li>
-         {/*  <li>nombre:{userData?.first_name}</li>
+           <li>nombre:{userData?.first_name}</li>
           <li>apellido: {userData?.last_name}</li>
           <li>Data: {userData?.username}</li>
           <li>idioma: {userData?.language_code}</li>
-          <li>premiun?: {userData?.is_premium}</li> */}
+          <li>premiun?: {userData?.is_premium}</li> 
         </ul>
       
-      </div>
+      </div> */}
       
       <div className="app">
       {/* Top section */}
+
       <header>
         <h1 className="logo">Bigpot</h1>
-        <h2>Crypto 3-Decimal Lucky Draw</h2>
-        <p>Win big at 8 PM UTC based on BTC & ETH decimals</p>
-      </header>
+            <h1>Crypto 2-Decimal Lucky Draw</h1>
+            <p className="subtitle">Win big with the last two decimals of Bitcoin & Ethereum prices daily at 8 PM UTC</p>
+        </header>
 
       <PrizeSection />
       <CryptoPrices prices={prices} setPrices={setPrices} />
@@ -84,6 +88,7 @@ function App() {
     </div>
       
 		
+    </div>
     </>
   )
 }

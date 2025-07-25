@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 // PrizeSection.jsx
 export const PrizeSection = () => (
   <section className="prize-section">
-    <h3>Today's Grand Prize</h3>
-    <div className="prize-amount">$2,500 USD</div>
-  </section>
+            <h2 className="prize-title">Today's Grand Prize</h2>
+            <div className="prize-amount">$2,500 <span >USD</span></div>
+        </section>
 );
 
 // CryptoPrices.jsx
@@ -14,7 +14,7 @@ export const CryptoPrices = ({ prices, setPrices }:{prices: {btc:string, eth:str
     const fetchIt = async () => {
       const btc = 67234 + Math.random() * 200;
       const eth = 3456 + Math.random() * 50;
-      setPrices({ btc: btc.toFixed(3), eth: eth.toFixed(3) });
+      setPrices({ btc: btc.toFixed(2), eth: eth.toFixed(2) });
     };
     fetchIt();
     const id = setInterval(fetchIt, 30_000);
@@ -23,67 +23,118 @@ export const CryptoPrices = ({ prices, setPrices }:{prices: {btc:string, eth:str
 
   return (
     <section className="crypto-prices">
-      <div className="crypto-card">
-        <i className="fab fa-bitcoin bitcoin-icon" /> Bitcoin (BTC)
-        <br />
-        ${prices.btc} → <span className="digits">{prices.btc.slice(-3)}</span>
-      </div>
-      <div className="crypto-card">
-        <i className="fab fa-ethereum ethereum-icon" /> Ethereum (ETH)
-        <br />
-        ${prices.eth} → <span className="digits">{prices.eth.slice(-3)}</span>
-      </div>
-    </section>
+            <div className="crypto-card">
+                <div className="crypto-name">
+                    <i className="fab fa-bitcoin crypto-icon bitcoin-icon"></i>
+                    Bitcoin (BTC)
+                    <span className="live-indicator">
+                        <span className="live-dot"></span>
+                        LIVE
+                    </span>
+                </div>
+                <div className="crypto-price" id="btc-price">${prices.btc}</div>
+                <div className="winning-digits">
+                    <span>Winning 2 decimals:</span>
+                    <span className="digits" id="btc-digits">{prices.btc.slice(-2)}</span>
+                </div>
+            </div>
+
+            <div className="crypto-card">
+                <div className="crypto-name">
+                    <i className="fab fa-ethereum crypto-icon ethereum-icon"></i>
+                    Ethereum (ETH)
+                    <span className="live-indicator">
+                        <span className="live-dot"></span>
+                        LIVE
+                    </span>
+                </div>
+                <div className="crypto-price" id="eth-price">${prices.eth}</div>
+                <div className="winning-digits">
+                    <span>Winning 2 decimals:</span>
+                    <span className="digits" id="eth-digits">{prices.eth.slice(-2)}</span>
+                </div>
+            </div>
+        </section>
+   
   );
-};
+}
 
 // Countdown.jsx
 export const Countdown = ({ countdown}:{countdown:string}) => (
   <section className="drawing-info">
-    <div className="next-drawing">Next drawing in:</div>
-    <div className="countdown">{countdown}</div>
+            <div className="next-drawing">Next drawing in:</div>
+            <div className="countdown" id="countdown">{countdown}</div>
   </section>
 );
 
 // TicketSection.jsx
 export const TicketSection = ({ tickets, setTickets }:{tickets:number, setTickets: React.Dispatch<React.SetStateAction<number>>}) => (
   <section className="ticket-section">
-    <h3 className="ticket-title">Buy Your Ticket</h3>
-    <div className="ticket-price">$5 USD</div>
-    <div className="ticket-quantity">
-      <button onClick={() => setTickets(Math.max(1, tickets - 1))}>-</button>
-      <input
-        type="number"
-        min="1"
-        max="20"
-        value={tickets}
-        onChange={(e) => setTickets(+e.target.value)}
-      />
-      <button onClick={() => setTickets(Math.min(20, tickets + 1))}>+</button>
-    </div>
-    <button
-      className="btn"
-      onClick={() =>
-        alert(`Purchasing ${tickets} ticket(s) for $${tickets * 5}`)
-      }
-    >
-      <i className="fas fa-ticket-alt" /> Buy Tickets
-    </button>
-  </section>
+            <h2 className="ticket-title">Get Your Lucky Ticket</h2>
+            <div className="ticket-price">$3 <span>USD</span></div>
+            <div className="ticket-quantity">
+                <button className="quantity-btn" onClick={() => setTickets(Math.max(1, tickets - 1))}>-</button>
+                <input
+                 className="quantity-input"
+                 type="number"
+                 min="1"
+                 max="20"
+                 value={tickets}
+                 onChange={(e) => setTickets(+e.target.value)}
+               />
+                <button className="quantity-btn" onClick={() => setTickets(Math.min(20, tickets + 1))}>+</button>
+            </div>
+            
+            <button
+               className="buy-ticket-btn"
+               onClick={() =>
+                 alert(`go to buy page ${tickets} ticket(s) for $${tickets * 5}`)
+               }
+             >
+               <i className="fas fa-ticket-alt" /> Buy Ticket(s) Now
+             </button>
+            <p >
+                6-digit winning number = BTC last 2 decimals + ETH last 2 decimals
+            </p>
+        </section>
+ 
 );
 
 // PastWinners.jsx
 export const PastWinners = ({ open, toggle }:{open:boolean, toggle:()=>void}) => (
-  <section>
-    <button className="btn" onClick={toggle}>
-      {open ? "Hide" : "Show"} Past Winners
-    </button>
+  
+  <section className="past-winners-wrapper">
+    
+    <button className="past-winners-toggle" id="pastWinnersToggle" onClick={toggle}>
+    <i className="fas fa-trophy"></i>
+    View All Past Winners
+    <i className="fas fa-chevron-down"></i>
+  </button>
     {open && (
-      <ul className="winners-list">
-        <li>2025-07-23 – 571829 – 0x7a2b…3f8c</li>
-        <li>2025-07-22 – 134472 – 0x4e5a…9d2b</li>
-        <li>2025-07-21 – 897053 – 0x8c1f…7e3a</li>
-      </ul>
+      <>
+      <div className="past-winners-panel" /* style={{marginTop:"100px", display: "block"}} */ id="pastWinnersPanel">
+        <div className="search-bar">
+        <i className="fas fa-search"></i>
+        <input type="text" id="pastWinnersSearch" placeholder="Search by date or address…"/>
+        </div>
+      </div>
+      <div className="table-wrapper">
+      <table id="pastWinnersTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Winning #</th>
+            <th>Prize</th>
+            <th>Winner Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </>
+  
     )}
   </section>
 );

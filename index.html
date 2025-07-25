@@ -11,3 +11,745 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto 3-Decimal Lucky Draw</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            animation: slideIn 0.6s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+            to { text-shadow: 0 0 30px rgba(118, 75, 162, 0.5); }
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        .prize-section {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .prize-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .prize-title {
+            font-size: 1.5rem;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+        .prize-amount {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .crypto-prices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .crypto-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .crypto-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .crypto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .crypto-card:hover::before {
+            transform: scaleX(1);
+        }
+        .crypto-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+        .bitcoin-icon {
+            color: #f7931a;
+        }
+        .ethereum-icon {
+            color: #627eea;
+        }
+        .crypto-name {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .crypto-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        .winning-digits {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: #6b7280;
+            gap: 5px;
+        }
+        .digits {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+            font-size: 1.2rem;
+        }
+        .drawing-info {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .drawing-info::before {
+            content: '\f017';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #0ea5e9;
+            opacity: 0.2;
+        }
+        .next-drawing {
+            font-weight: 600;
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .countdown {
+            font-size: 1.5rem;
+            color: #0ea5e9;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+        .ticket-section {
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .ticket-section::before {
+            content: '\f3ff';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            color: #f59e0b;
+            opacity: 0.1;
+        }
+        .ticket-title {
+            font-size: 1.8rem;
+            color: #92400e;
+            margin-bottom: 20px;
+        }
+        .ticket-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 20px;
+        }
+        .buy-ticket-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .buy-ticket-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .buy-ticket-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        .buy-ticket-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+        .buy-ticket-btn:active {
+            transform: translateY(-1px);
+        }
+        .winners-section {
+            margin-bottom: 30px;
+        }
+        .winners-title {
+            font-size: 1.5rem;
+            color: #4b5563;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .winners-title::before {
+            content: '\f091';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #f59e0b;
+        }
+        .winners-list {
+            list-style: none;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .winner-item {
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .winner-item:hover {
+            background-color: #f9fafb;
+            padding-left: 25px;
+        }
+        .winner-item:last-child {
+            border-bottom: none;
+        }
+        .winner-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        .winner-item:hover::before {
+            transform: scaleY(1);
+        }
+        .winner-date {
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .winner-details {
+            color: #6b7280;
+            text-align: right;
+        }
+        .winner-address {
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            font-weight: 600;
+        }
+        .rules-section {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .rules-section::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: #9ca3af;
+            opacity: 0.1;
+        }
+        .rules-title {
+            font-size: 1.5rem;
+            color: #4b5563;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rules-list {
+            list-style: none;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+        .rules-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .rules-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 3px;
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        .refresh-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .refresh-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .refresh-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+        .refresh-icon {
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        .refresh-btn:hover .refresh-icon {
+            transform: rotate(180deg);
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #10b981;
+            margin-left: 10px;
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .ticket-quantity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .quantity-btn {
+            background: #e5e7eb;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .quantity-btn:hover {
+            background: #d1d5db;
+            transform: scale(1.1);
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .prize-amount {
+                font-size: 2.5rem;
+            }
+            .crypto-prices {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crypto 3-Decimal Lucky Draw</h1>
+            <p class="subtitle">Win big with the last three decimals of Bitcoin & Ethereum prices daily at 8 PM UTC</p>
+        </header>
+
+        <section class="prize-section">
+            <h2 class="prize-title">Today's Grand Prize</h2>
+            <div class="prize-amount">$2,500 <span style="font-size: 1.5rem; font-weight: 400;">USD</span></div>
+        </section>
+
+        <section class="crypto-prices">
+            <div class="crypto-card">
+                <div class="crypto-name">
+                    <i class="fab fa-bitcoin crypto-icon bitcoin-icon"></i>
+                    Bitcoin (BTC)
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </span>
+                </div>
+                <div class="crypto-price" id="btc-price">$0.000</div>
+                <div class="winning-digits">
+                    <span>Winning 3 decimals:</span>
+                    <span class="digits" id="btc-digits">000</span>
+                </div>
+            </div>
+
+            <div class="crypto-card">
+                <div class="crypto-name">
+                    <i class="fab fa-ethereum crypto-icon ethereum-icon"></i>
+                    Ethereum (ETH)
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </span>
+                </div>
+                <div class="crypto-price" id="eth-price">$0.000</div>
+                <div class="winning-digits">
+                    <span>Winning 3 decimals:</span>
+                    <span class="digits" id="eth-digits">000</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="drawing-info">
+            <div class="next-drawing">Next drawing in:</div>
+            <div class="countdown" id="countdown">Loading...</div>
+        </section>
+
+        <section class="ticket-section">
+            <h2 class="ticket-title">Get Your Lucky Ticket</h2>
+            <div class="ticket-price">$5 <span style="font-size: 1rem;">USD</span></div>
+            <div class="ticket-quantity">
+                <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                <input type="number" class="quantity-input" id="ticketQuantity" value="1" min="1" max="20">
+                <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+            </div>
+            <button class="buy-ticket-btn" onclick="buyTicket()">
+                <i class="fas fa-ticket-alt"></i>
+                Buy Ticket(s) Now
+            </button>
+            <p style="margin-top: 15px; color: #6b7280; font-size: 0.9rem;">
+                6-digit winning number = BTC last 3 decimals + ETH last 3 decimals
+            </p>
+        </section>
+
+        <section class="winners-section">
+            <h2 class="winners-title">Recent Winners</h2>
+            <ul class="winners-list" id="winners-list">
+                <li class="winner-item">
+                    <span class="winner-date">July 23, 2025</span>
+                    <span class="winner-details">
+                        Winner: <span class="winner-address">0x7a2b...3f8c</span> 
+                        (BTC: 571, ETH: 829)
+                    </span>
+                </li>
+                <li class="winner-item">
+                    <span class="winner-date">July 22, 2025</span>
+                    <span class="winner-details">
+                        Winner: <span class="winner-address">0x4e5a...9d2b</span> 
+                        (BTC: 134, ETH: 472)
+                    </span>
+                </li>
+                <li class="winner-item">
+                    <span class="winner-date">July 21, 2025</span>
+                    <span class="winner-details">
+                        Winner: <span class="winner-address">0x8c1f...7e3a</span> 
+                        (BTC: 897, ETH: 053)
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="rules-section">
+            <h2 class="rules-title">How It Works</h2>
+            <ul class="rules-list">
+                <li>Every day at 8:00 PM UTC, we take the last three decimal places of Bitcoin and Ethereum prices</li>
+                <li>These six digits are combined to create the winning number sequence (e.g., BTC:123 + ETH:456 = 123456)</li>
+                <li>All eligible participants with matching ticket numbers win a share of the prize pool</li>
+                <li>Prizes are distributed automatically to the winning wallet addresses within 24 hours</li>
+                <li>Ticket numbers are assigned randomly to participants each day</li>
+                <li>Each ticket costs $5 USD and can win the full $2,500 prize</li>
+            </ul>
+        </section>
+
+        <button class="refresh-btn" id="refresh-btn">
+            <i class="fas fa-sync-alt refresh-icon"></i>
+            Refresh Prices
+        </button>
+    </div>
+
+    <script>
+        // Simulated price data - in a real app, you would fetch from an API
+        const fetchCryptoPrices = () => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const btcPrice = 67234.571 + Math.random() * 100;
+                    const ethPrice = 3456.829 + Math.random() * 50;
+                    
+                    resolve({
+                        bitcoin: btcPrice.toFixed(3),
+                        ethereum: ethPrice.toFixed(3)
+                    });
+                }, 500);
+            });
+        };
+
+        const updatePrices = async () => {
+            const refreshBtn = document.getElementById('refresh-btn');
+            
+            refreshBtn.innerHTML = '<i class="fas fa-sync-alt refresh-icon"></i>Refreshing<span class="loading"></span>';
+            refreshBtn.disabled = true;
+            
+            try {
+                const prices = await fetchCryptoPrices();
+                
+                document.getElementById('btc-price').textContent = `$${prices.bitcoin}`;
+                const btcDecimals = prices.bitcoin.split('.')[1];
+                document.getElementById('btc-digits').textContent = btcDecimals;
+                
+                document.getElementById('eth-price').textContent = `$${prices.ethereum}`;
+                const ethDecimals = prices.ethereum.split('.')[1];
+                document.getElementById('eth-digits').textContent = ethDecimals;
+                
+                document.querySelectorAll('.crypto-card').forEach(card => {
+                    card.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 200);
+                });
+                
+            } catch (error) {
+                console.error('Error fetching prices:', error);
+            } finally {
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt refresh-icon"></i>Refresh Prices';
+                refreshBtn.disabled = false;
+            }
+        };
+
+        const updateCountdown = () => {
+            const now = new Date();
+            const nextDrawing = new Date();
+            
+            nextDrawing.setHours(20, 0, 0, 0);
+            
+            if (now > nextDrawing) {
+                nextDrawing.setDate(nextDrawing.getDate() + 1);
+            }
+            
+            const timeLeft = nextDrawing - now;
+            
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        };
+
+        function increaseQuantity() {
+            const input = document.getElementById('ticketQuantity');
+            if (input.value < 20) input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('ticketQuantity');
+            if (input.value > 1) input.value = parseInt(input.value) - 1;
+        }
+
+        function buyTicket() {
+            const quantity = document.getElementById('ticketQuantity').value;
+            const totalPrice = quantity * 5;
+            
+            // Simulate wallet connection and purchase
+            alert(`🎫 Purchase ${quantity} ticket(s) for $${totalPrice} USD?\n\nConnect your wallet to complete the transaction.`);
+            
+            // In a real app, this would connect to Web3 wallet
+            console.log(`Buying ${quantity} tickets for ${totalPrice} USD`);
+        }
+
+        // Initial load
+        updatePrices();
+        updateCountdown();
+        
+        setInterval(updateCountdown, 1000);
+        document.getElementById('refresh-btn').addEventListener('click', updatePrices);
+        setInterval(updatePrices, 30000);
+    </script>
+</body>
+</html>  -->
+ 
