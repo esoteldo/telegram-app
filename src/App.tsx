@@ -71,7 +71,7 @@ function App() {
       {/* Top section */}
 
       <header>
-        <h1 className="logo">Bigpot</h1>
+        <div className='logo-container'><div className="logo1">Cryp2</div><div className="logo2">Win</div></div>
             <h1>Crypto 2-Decimal Lucky Draw</h1>
             <p className="subtitle">Win big with the last two decimals of Bitcoin & Ethereum prices daily at 8 PM UTC</p>
         </header>
@@ -83,12 +83,13 @@ function App() {
       <PastWinners open={openWinners} toggle={() => setOpen(!openWinners)} />
       <HowItWorks />
 
-      {/* Bottom nav */}
-      <BottomNav />
+      
     </div>
       
 		
     </div>
+    {/* Bottom nav */}
+      <BottomNav />
     </>
   )
 }

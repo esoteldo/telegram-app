@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // PrizeSection.jsx
 export const PrizeSection = () => (
@@ -108,15 +108,17 @@ export const PastWinners = ({ open, toggle }:{open:boolean, toggle:()=>void}) =>
     <button className="past-winners-toggle" id="pastWinnersToggle" onClick={toggle}>
     <i className="fas fa-trophy"></i>
     View All Past Winners
-    <i className="fas fa-chevron-down"></i>
+   {(!open) ? <i className="fas fa-chevron-down"></i>:<i className="fas fa-chevron-up"></i> }
   </button>
     {open && (
       <>
-      <div className="past-winners-panel" /* style={{marginTop:"100px", display: "block"}} */ id="pastWinnersPanel">
+      <div className="past-winners-panel" style={{marginTop:"10px", display: "block"}} id="pastWinnersPanel">
+
         <div className="search-bar">
         <i className="fas fa-search"></i>
         <input type="text" id="pastWinnersSearch" placeholder="Search by date or address…"/>
         </div>
+        
       </div>
       <div className="table-wrapper">
       <table id="pastWinnersTable">
@@ -129,6 +131,12 @@ export const PastWinners = ({ open, toggle }:{open:boolean, toggle:()=>void}) =>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <th>28/07/2025</th>
+            <th>208</th>
+            <th>3500$</th>
+            <th>Ado3w1...32c3</th>
+          </tr>
           
         </tbody>
       </table>
@@ -142,30 +150,36 @@ export const PastWinners = ({ open, toggle }:{open:boolean, toggle:()=>void}) =>
 // HowItWorks.jsx
 export const HowItWorks = () => (
   <section className="rules-section">
-    <h3>How It Works</h3>
-    <ul>
-      <li>Every day at 8 PM UTC we capture the last 3 decimals of BTC & ETH.</li>
-      <li>Combine them into a 6-digit winning number.</li>
-      <li>Match your ticket → win $2,500!</li>
-    </ul>
-  </section>
+            <h2 className="rules-title">How It Works</h2>
+            <ul className="rules-list">
+                <li>Every day at 8:00 PM UTC, we take the last three decimal places of Bitcoin and Ethereum prices</li>
+                <li>These 4 digits are combined to create the winning number sequence (e.g., BTC:12 + ETH:34 = 1234)</li>
+                <li>All eligible participants with matching ticket numbers win a share of the prize pool</li>
+                <li>Prizes are distributed automatically to the winning wallet addresses within 24 hours</li>
+                <li>Ticket numbers are assigned randomly or manually for participants each day</li>
+                <li>Each ticket costs $3 USD and can win the full $2,500 prize</li>
+            </ul>
+        </section>
 );
 
 // BottomNav.jsx
 export const BottomNav = () => {
-  const [active, setActive] = useState(0);
-  const icons = ["fas fa-home", "fas fa-chart-line", "fas fa-trophy", "fas fa-user"];
+  /* const [active, setActive] = useState(0);
+  const icons = ["fas fa-home", "fas fa-chart-line", "fas fa-trophy", "fas fa-user"]; */
   return (
-    <nav className="bottom-nav">
-      {icons.map((icon, i) => (
-        <button
-          key={i}
-          className={active === i ? "active" : ""}
-          onClick={() => setActive(i)}
-        >
-          <i className={icon} />
-        </button>
-      ))}
-    </nav>
+<nav className="bottom-nav">
+  <div className="nav-item active" data-index="0">
+    <i className="fa-solid fa-home" ></i>
+  </div>
+  <div className="nav-item" data-index="1">
+   <i className="fa-solid fa-trophy" ></i>
+  </div>
+  <div className="nav-item" data-index="2">
+    <i className="fa-solid fa-chart-line" ></i>
+  </div>
+  <div className="nav-item" data-index="3">
+    <i className="fa-solid fa-user" ></i>
+  </div>
+</nav>
   );
 };
