@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate  } from "react-router-dom"; 
 
 // PrizeSection.jsx
 export const PrizeSection = () => (
@@ -68,7 +69,17 @@ export const Countdown = ({ countdown}:{countdown:string}) => (
 );
 
 // TicketSection.jsx
-export const TicketSection = ({ tickets, setTickets }:{tickets:number, setTickets: React.Dispatch<React.SetStateAction<number>>}) => (
+export const TicketSection = ({ tickets, setTickets }:{tickets:number, setTickets: React.Dispatch<React.SetStateAction<number>>})=>{
+  const navigate = useNavigate();
+
+  const handleBuyTickets = () => {
+    if (tickets < 1) {
+      alert("Please select at least one ticket.");
+      return;
+    }
+      navigate("/buytickets");
+  };
+  return (
   <section className="ticket-section">
             <h2 className="ticket-title">Get Your Lucky Ticket</h2>
             <div className="ticket-price">$3 <span>USD</span></div>
@@ -88,7 +99,7 @@ export const TicketSection = ({ tickets, setTickets }:{tickets:number, setTicket
             <button
                className="buy-ticket-btn"
                onClick={() =>
-                 alert(`go to buy page ${tickets} ticket(s) for $${tickets * 5}`)
+                handleBuyTickets()
                }
              >
                <i className="fas fa-ticket-alt" /> Buy Ticket(s) Now
@@ -99,6 +110,7 @@ export const TicketSection = ({ tickets, setTickets }:{tickets:number, setTicket
         </section>
  
 );
+}
 
 // PastWinners.jsx
 export const PastWinners = ({ open, toggle }:{open:boolean, toggle:()=>void}) => (
@@ -164,11 +176,12 @@ export const HowItWorks = () => (
 
 // BottomNav.jsx
 export const BottomNav = () => {
+  const navigate = useNavigate();
   /* const [active, setActive] = useState(0);
   const icons = ["fas fa-home", "fas fa-chart-line", "fas fa-trophy", "fas fa-user"]; */
   return (
 <nav className="bottom-nav">
-  <div className="nav-item active" data-index="0">
+  <div className="nav-item active" onClick={()=>{navigate("/")}} data-index="0">
     <i className="fa-solid fa-home" ></i>
   </div>
   <div className="nav-item" data-index="1">
