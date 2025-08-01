@@ -11,16 +11,20 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
+    "@orbs-network/ton-access": "^2.3.3",
     "@telegram-apps/react-router-integration": "^1.0.1",
     "@telegram-apps/sdk-react": "^3.3.6",
     "@ton/core": "^0.61.0",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^15.3.1",
     "@tonconnect/sdk": "^3.2.0",
     "@tonconnect/ui-react": "^2.2.0",
     "@twa-dev/sdk": "^8.0.2",
     "@vitejs/plugin-basic-ssl": "^2.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.7.1"
+    "react-router-dom": "^7.7.1",
+    "vite-plugin-node-polyfills": "^0.24.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

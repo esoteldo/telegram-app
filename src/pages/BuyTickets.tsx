@@ -1,11 +1,11 @@
-import { useState } from 'react';
+/* import { useState } from 'react'; */
 /* import  '../css/ticketsBuy.css'; */
    import { useLocation } from 'react-router-dom';
-
+/* import { TonConnectButton } from '@tonconnect/ui-react'; */
 
 const BuyTickets = () => {
     /* const [tickets, setTickets] = useState(1); */
-    const [walletConnected, setWalletConnected] = useState(false);
+   /*  const [walletConnected, setWalletConnected] = useState(false); */
     const location = useLocation();
   return (
     <>
@@ -20,9 +20,9 @@ const BuyTickets = () => {
             <h2 className="ticket-title">Ticket(s) Total Price</h2>
             <div className="ticket-amount">$10 <span /* style="font-size: 1.5rem; font-weight: 400;" */>USD</span></div>
         </section>
-
-        <button type="button" className="connect-wallet-btn" onClick={()=>{setWalletConnected(true)}}>Connect Wallet</button>
-        {walletConnected && (<button type="button" className="connect-wallet-btn">Buy Tickets</button>)}
+      {/* <TonConnectButton /> */}
+       {/*  <button type="button" className="connect-wallet-btn" onClick={()=>{setWalletConnected(true)}}>Connect Wallet</button>
+        {walletConnected && (<button type="button" className="connect-wallet-btn">Buy Tickets</button>)} */}
 
     </>
   )

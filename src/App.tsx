@@ -1,37 +1,64 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect} from 'react';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import './css/App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
+import { miniApp, viewport } from '@telegram-apps/sdk-react';
+/* import { useIntegration } from '@telegram-apps/react-router-integration'; */
 import HomePage from './pages/HomePage.tsx';
 import { BottomNav } from './components/Components.tsx';
-/* import BuyTickets from './pages/BuyTickets.tsx'; */
-import { Suspense } from 'react';
+
+import BuyTickets from './pages/BuyTickets.tsx';
 
 
 
 function App() {
+  
+   
 
+    /* const navigator = useMemo(() => new BrowserNavigator(['/index'], 0);, []); */
+    /* const [location, reactNavigator] = useIntegration(navigator); */
+
+   /*  useEffect(() => {
+        navigator.attach();
+        return () => navigator.detach();
+    }, [navigator]); */
+
+    useEffect(() => {
+      if (miniApp.setBackgroundColor.isAvailable()) {
+        miniApp.setBackgroundColor('#161C24');
+      }
+      if (miniApp.setHeaderColor.isAvailable()){
+        miniApp.setHeaderColor('#161C24');
+      }
+      if (miniApp.ready.isAvailable()) {
+        miniApp.ready();
+      }
+    }, [miniApp]);
+
+    useEffect(() => {
+        if (viewport.expand.isAvailable()) {
+          viewport.expand();
+       }
+    }, [viewport]);
   
   return (
     <>
     
-      <Suspense fallback={<div>Loading...</div>}>
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <BrowserRouter basename= 'telegram-app/'>
+    <HashRouter>
     <div className="container">
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {/* <Route path="/buytickets" element={<BuyTickets />} /> */}
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/buytickets" element={<BuyTickets />} />
+              {/* Add more routes as needed */}   
+               {/*  <Route path="*" element={<Navigate to="/"/>}/> */}
+            </Routes>
         
-      
-    {/* Bottom nav */}
-      </Routes>
       
       </div>
       <BottomNav />
-      </BrowserRouter>
-      </Suspense>
+      </HashRouter>
     </>
   )
 }
