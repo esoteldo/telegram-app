@@ -14,7 +14,7 @@ import BuyTickets from './pages/BuyTickets.tsx';
 
 
 function App() {
-  const lp = useMemo(() => retrieveLaunchParams(), []);
+  const lp = useMemo(() => retrieveLaunchParams() as { tgWebAppBaseUrl?: string }, []);
     /* const navigator = useMemo(() => new BrowserNavigator(['/index'], 0);, []); */
     /* const [location, reactNavigator] = useIntegration(navigator); */
 
@@ -45,9 +45,9 @@ function App() {
     <>
     
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <HashRouter basename='/'>
+    <HashRouter basename='{lp.tgWebAppBaseUrl ? lp.tgWebAppBaseUrl.toString() : "/index.html"}'>
     <div className="container">
-      <h4>{typeof lp.tgWebAppBaseUrl === 'string' ? lp.tgWebAppBaseUrl : 'hola'}</h4>
+      
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/buytickets" element={<BuyTickets />} />
@@ -57,6 +57,7 @@ function App() {
         
       
       </div>
+      <h4>{lp.tgWebAppBaseUrl ? lp.tgWebAppBaseUrl.toString() : ''}</h4>
       <BottomNav />
       </HashRouter>
     </>
