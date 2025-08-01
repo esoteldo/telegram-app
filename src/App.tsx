@@ -45,7 +45,7 @@ function App() {
     <>
     
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <HashRouter basename='/telegram-app/'>
+    <HashRouter basename='/'>
     <div className="container">
       <h4>{typeof lp.tgWebAppBaseUrl === 'string' ? lp.tgWebAppBaseUrl : 'hola'}</h4>
             <Routes>
