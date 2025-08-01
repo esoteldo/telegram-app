@@ -18,9 +18,8 @@ function App() {
     
       <Suspense fallback={<div>Loading...</div>}>
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <BrowserRouter basename={import.meta.env.BASE_URL || '/'}>
+    <BrowserRouter basename= '/'>
     <div className="container">
-      <h1>{import.meta.url}</h1>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/buytickets" element={<BuyTickets />} />
