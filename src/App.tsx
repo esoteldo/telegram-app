@@ -18,7 +18,7 @@ function App() {
     
       <Suspense fallback={<div>Loading...</div>}>
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <BrowserRouter basename= '/'>
+    <BrowserRouter basename= 'telegram-app/'>
     <div className="container">
       <Routes>
         <Route path="/" element={<HomePage />} />
