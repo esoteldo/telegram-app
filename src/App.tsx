@@ -5,8 +5,7 @@ import './css/App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { miniApp, viewport } from '@telegram-apps/sdk-react';
 /* import { useIntegration } from '@telegram-apps/react-router-integration'; */
-import { retrieveLaunchParams, useSignal, isMiniAppDark } from '@telegram-apps/sdk-react';
-import { AppRoot } from '@telegram-apps/telegram-ui';
+
 import HomePage from './pages/HomePage.tsx';
 import { BottomNav } from './components/Components.tsx';
 
@@ -15,9 +14,6 @@ import BuyTickets from './pages/BuyTickets.tsx';
 
 
 function App() {
-  
-   const lp = useMemo(() => retrieveLaunchParams(), []);
-  const isDark = useSignal(isMiniAppDark);
 
     /* const navigator = useMemo(() => new BrowserNavigator(['/index'], 0);, []); */
     /* const [location, reactNavigator] = useIntegration(navigator); */
@@ -49,10 +45,6 @@ function App() {
     <>
     
       {/* BrowserRouter wraps the entire app to enable routing */}
-      <AppRoot
-      appearance={isDark ? 'dark' : 'light'}
-      platform={['macos', 'ios'].includes(lp.tgWebAppPlatform) ? 'ios' : 'base'}
-    ></AppRoot>
     <HashRouter>
     <div className="container">
             <Routes>
