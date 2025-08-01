@@ -49,7 +49,7 @@ function App() {
     <HashRouter>
     <div className="container">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/telegram-app/" element={<HomePage />} />
               <Route path="/buytickets" element={<BuyTickets />} />
               {/* Add more routes as needed */}   
                {/*  <Route path="*" element={<Navigate to="/"/>}/> */}
