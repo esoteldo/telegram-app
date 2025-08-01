@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import HomePage from './pages/HomePage.tsx';
 import { BottomNav } from './components/Components.tsx';
-import BuyTickets from './pages/BuyTickets.tsx';
+/* import BuyTickets from './pages/BuyTickets.tsx'; */
 import { Suspense } from 'react';
 
 
@@ -22,7 +22,7 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/buytickets" element={<BuyTickets />} />
+        {/* <Route path="/buytickets" element={<BuyTickets />} /> */}
         
       
     {/* Bottom nav */}
