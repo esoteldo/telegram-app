@@ -10,6 +10,6 @@ export default defineConfig({
    build: {
 	   outDir: './docs'
 	 },
-   base: './'
+   base: '/telegram-app/'
 })
 
