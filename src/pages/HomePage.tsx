@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react'
 import { Countdown, CryptoPrices, HowItWorks, PastWinners, PrizeSection, TicketSection } from '../components/Components'
 import WebApp from '@twa-dev/sdk'
 import '../css/App.css'
+import { useLocation } from 'react-router-dom';
 
 interface Userdata{
   id:number,
@@ -14,6 +15,8 @@ interface Userdata{
 const HomePage = () => {
 
     const [userData, setUserData]=useState<Userdata | null>(null)
+
+  const location = useLocation();
 
   console.log(userData)
 
@@ -67,6 +70,7 @@ const HomePage = () => {
       <header>
         <div className='logo-container'><div className="logo1">Cryp2</div><div className="logo2">Win</div></div>
             <h1>Crypto 2-Decimal Lucky Draw</h1>
+            <h4>{location.pathname}</h4>
             <p className="subtitle">Win big with the last two decimals of Bitcoin & Ethereum prices daily at 8 PM UTC</p>
         </header>
 

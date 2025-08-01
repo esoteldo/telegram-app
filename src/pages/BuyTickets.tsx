@@ -1,15 +1,18 @@
 import { useState } from 'react';
 /* import  '../css/ticketsBuy.css'; */
+   import { useLocation } from 'react-router-dom';
 
 
 const BuyTickets = () => {
     /* const [tickets, setTickets] = useState(1); */
     const [walletConnected, setWalletConnected] = useState(false);
+    const location = useLocation();
   return (
     <>
     <header>
         <div className='logo-container'><div className="logo1">Cryp2</div><div className="logo2">Win</div></div>
             <h1>Buy Tickets</h1>
+            <h4>{location.pathname}</h4>
             <p className="subtitle">Secure your spot in the Crypto Daily Lucky Draw</p>
         </header>
 
