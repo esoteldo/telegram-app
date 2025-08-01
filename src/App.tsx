@@ -18,7 +18,7 @@ function App() {
     
       <Suspense fallback={<div>Loading...</div>}>
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <BrowserRouter basename='https:/esoteldo-github.io/telegram-app/'>
+    <BrowserRouter basename={import.meta.env.BASE_URL || '/'}>
     <div className="container">
       <h1>{import.meta.url}</h1>
       <Routes>
