@@ -45,7 +45,7 @@ function App() {
     <>
     
       {/* BrowserRouter wraps the entire app to enable routing */}
-    <HashRouter basename='/'>
+    <HashRouter>
     <div className="container">
       
             <Routes>
